@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
-    def new   
+    def new 
+        @article = Article.new
     end
 
     def index
@@ -10,15 +11,18 @@ class ArticlesController < ApplicationController
         @article = Article.find(params[:id])        
     end
 
-        def edit
+    def edit
         @article = Article.find(params[:id])
     end
 
     def create
         @article = Article.new(article_params)
 
-        @article.save
+       if @article.save
         redirect_to @article
+       else
+        render 'new'   
+       end 
     end
 
     def update
